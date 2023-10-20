@@ -7,7 +7,7 @@ public class GameField {
     private boolean digitsWrapper;
 
     /**
-     * @param _rows rows of the field (max = 15)
+     * @param _rows    rows of the field (max = 15)
      * @param _columns height of the field (max = 15)
      */
     public GameField(int _rows, int _columns, boolean _digitsWrapper) {
@@ -45,10 +45,10 @@ public class GameField {
 
         // Check if move is valid
         if (!(_row % 2 == 0 && _column % 2 != 0 ||
-            _row % 2 != 0 && _column % 2 == 0))
+                _row % 2 != 0 && _column % 2 == 0))
             return -1; // Not a valid move
         if (field[_row][_column] == GameStates.Corner ||
-            field[_row][_column] != GameStates.Empty)
+                field[_row][_column] != GameStates.Empty)
             return -1; // Not a valid move
 
         // Add a move made by a player
@@ -74,8 +74,8 @@ public class GameField {
     }
 
     private int setCellCompleted(int _row, int _column, int _player) {
-        if (isCellCompleted(getValueInRange(_row    , rwidth - 1),
-                            getValueInRange(_column , cwidth - 1))
+        if (isCellCompleted(getValueInRange(_row, rwidth - 1),
+                getValueInRange(_column, cwidth - 1))
                 && field[_row][_column] == GameStates.Empty) {
             if (_player == 0) {
                 field[_row][_column] = GameStates.FirstScored;
@@ -86,16 +86,18 @@ public class GameField {
         }
         return 0;
     }
+
     private int getValueInRange(int _value, int _upperBound) {
         return Math.min(Math.max(_value, 0), _upperBound);
     }
+
     private boolean isCellCompleted(int _row, int _column) {
         // Check cells on same column
-        if (field[getValueInRange(_row - 1,rwidth - 1)][_column] == GameStates.Empty) return false;
-        if (field[getValueInRange(_row + 1,rwidth - 1)][_column ] == GameStates.Empty) return false;
+        if (field[getValueInRange(_row - 1, rwidth - 1)][_column] == GameStates.Empty) return false;
+        if (field[getValueInRange(_row + 1, rwidth - 1)][_column] == GameStates.Empty) return false;
         // Check cells on same row
-        if (field[_row][getValueInRange(_column - 1,cwidth - 1)] == GameStates.Empty) return false;
-        if (field[_row][getValueInRange(_column + 1,cwidth - 1)] == GameStates.Empty) return false;
+        if (field[_row][getValueInRange(_column - 1, cwidth - 1)] == GameStates.Empty) return false;
+        if (field[_row][getValueInRange(_column + 1, cwidth - 1)] == GameStates.Empty) return false;
 
         return true;
     }
@@ -116,7 +118,7 @@ public class GameField {
                 else System.out.print("   ");
             }
             for (int j = 0; j < cwidth; j++) {
-                System.out.printf("%s " ,enumStringify(field[i][j]));
+                System.out.printf("%s ", enumStringify(field[i][j]));
             }
 
 
@@ -157,7 +159,6 @@ public class GameField {
     }
 
 
-
     private String enumStringify(GameStates _state) {
         return switch (_state) {
             case Corner -> "*";
@@ -168,8 +169,6 @@ public class GameField {
             default -> " ";
         };
     }
-
-
 
 
 }
