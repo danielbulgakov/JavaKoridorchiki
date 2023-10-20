@@ -157,7 +157,6 @@ public class GameField {
         return sb.toString();
     }
 
-
     private String enumStringify(GameStates _state) {
         return switch (_state) {
             case Corner -> "*";
