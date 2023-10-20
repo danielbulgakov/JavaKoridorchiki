@@ -36,7 +36,6 @@ public class GameField {
         this(_rows, _columns, true);
     }
 
-
     public int tryMakeMove(int _row, int _column, int _player) {
         int score = 0;
 
@@ -169,6 +168,4 @@ public class GameField {
             default -> " ";
         };
     }
-
-
 }
