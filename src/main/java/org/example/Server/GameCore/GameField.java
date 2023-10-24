@@ -99,7 +99,6 @@ public class GameField {
     }
 
     public void print() {
-        int rcnt = 1, ccnt = 1;
         if (digitsWrapper) {
             System.out.print("  ");
             for (int i = 0; i < cols; i++) {
@@ -124,25 +123,16 @@ public class GameField {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        int rcnt = 1, ccnt = 1;
         if (digitsWrapper) {
             sb.append("   ");
             for (int i = 0; i < cols; i++) {
-                if (i % 2 != 0) {
-                    sb.append(String.format("%2d ", ccnt++));
-                } else {
-                    sb.append(" ");
-                }
+                sb.append(String.format("%2d ", i++));
             }
             sb.append("\n");
         }
         for (int i = 0; i < rows; i++) {
             if (digitsWrapper) {
-                if (i % 2 != 0) {
-                    sb.append(String.format("%2d ", rcnt++));
-                } else {
-                    sb.append("   ");
-                }
+                sb.append(String.format("%2d ", i));
             }
             for (int j = 0; j < cols; j++) {
                 sb.append(String.format("%s ", enumStringify(field[i][j])));
