@@ -1,7 +1,6 @@
 package org.example.Server.GameCore;
 
 public class GameField {
-    private int rwidth, cwidth;
     private int rows, cols;
     private GameStates[][] field;
     private boolean digitsWrapper;
@@ -12,17 +11,15 @@ public class GameField {
      */
     public GameField(int _rows, int _columns, boolean _digitsWrapper) {
         int maxSize = 15;
-        rows = Math.min(_rows, maxSize);
-        cols = Math.min(_columns, maxSize);
 
-        rwidth = rows * 2 + 1;
-        cwidth = cols * 2 + 1;
+        rows = Math.min(_rows, maxSize) * 2 + 1;
+        cols = Math.min(_columns, maxSize) * 2 + 1;
 
-        field = new GameStates[rwidth][cwidth];
+        field = new GameStates[rows][cols];
         digitsWrapper = _digitsWrapper;
 
-        for (int i = 0; i < rwidth; i++) {
-            for (int j = 0; j < cwidth; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 if (i % 2 == 0 && j % 2 == 0) {
                     field[i][j] = GameStates.Corner;
                 } else {
@@ -39,8 +36,8 @@ public class GameField {
     public int tryMakeMove(int _row, int _column, int _player) {
         int score = 0;
 
-        if (_row < 0 || _row > rwidth) return -1;
-        if (_column < 0 || _column > cwidth) return -1;
+        if (_row < 0 || _row > rows) return -1;
+        if (_column < 0 || _column > cols) return -1;
 
         // Check if move is valid
         if (!(_row % 2 == 0 && _column % 2 != 0 ||
@@ -73,8 +70,8 @@ public class GameField {
     }
 
     private int setCellCompleted(int _row, int _column, int _player) {
-        if (isCellCompleted(getValueInRange(_row, rwidth - 1),
-                getValueInRange(_column, cwidth - 1))
+        if (isCellCompleted(getValueInRange(_row, rows - 1),
+                getValueInRange(_column, cols - 1))
                 && field[_row][_column] == GameStates.Empty) {
             if (_player == 0) {
                 field[_row][_column] = GameStates.FirstScored;
@@ -92,11 +89,11 @@ public class GameField {
 
     private boolean isCellCompleted(int _row, int _column) {
         // Check cells on same column
-        if (field[getValueInRange(_row - 1, rwidth - 1)][_column] == GameStates.Empty) return false;
-        if (field[getValueInRange(_row + 1, rwidth - 1)][_column] == GameStates.Empty) return false;
+        if (field[getValueInRange(_row - 1, rows - 1)][_column] == GameStates.Empty) return false;
+        if (field[getValueInRange(_row + 1, rows - 1)][_column] == GameStates.Empty) return false;
         // Check cells on same row
-        if (field[_row][getValueInRange(_column - 1, cwidth - 1)] == GameStates.Empty) return false;
-        if (field[_row][getValueInRange(_column + 1, cwidth - 1)] == GameStates.Empty) return false;
+        if (field[_row][getValueInRange(_column - 1, cols - 1)] == GameStates.Empty) return false;
+        if (field[_row][getValueInRange(_column + 1, cols - 1)] == GameStates.Empty) return false;
 
         return true;
     }
@@ -104,19 +101,17 @@ public class GameField {
     public void print() {
         int rcnt = 1, ccnt = 1;
         if (digitsWrapper) {
-            System.out.print("   ");
-            for (int i = 0; i < cwidth; i++) {
-                if (i % 2 != 0) System.out.printf("%2d ", ccnt++);
-                else System.out.print(" ");
+            System.out.print("  ");
+            for (int i = 0; i < cols; i++) {
+                System.out.printf("%2d", i);
             }
             System.out.println();
         }
-        for (int i = 0; i < rwidth; i++) {
+        for (int i = 0; i < rows; i++) {
             if (digitsWrapper) {
-                if (i % 2 != 0) System.out.printf("%2d ", rcnt++);
-                else System.out.print("   ");
+                System.out.printf("%2d ", i);
             }
-            for (int j = 0; j < cwidth; j++) {
+            for (int j = 0; j < cols; j++) {
                 System.out.printf("%s ", enumStringify(field[i][j]));
             }
 
@@ -132,7 +127,7 @@ public class GameField {
         int rcnt = 1, ccnt = 1;
         if (digitsWrapper) {
             sb.append("   ");
-            for (int i = 0; i < cwidth; i++) {
+            for (int i = 0; i < cols; i++) {
                 if (i % 2 != 0) {
                     sb.append(String.format("%2d ", ccnt++));
                 } else {
@@ -141,7 +136,7 @@ public class GameField {
             }
             sb.append("\n");
         }
-        for (int i = 0; i < rwidth; i++) {
+        for (int i = 0; i < rows; i++) {
             if (digitsWrapper) {
                 if (i % 2 != 0) {
                     sb.append(String.format("%2d ", rcnt++));
@@ -149,7 +144,7 @@ public class GameField {
                     sb.append("   ");
                 }
             }
-            for (int j = 0; j < cwidth; j++) {
+            for (int j = 0; j < cols; j++) {
                 sb.append(String.format("%s ", enumStringify(field[i][j])));
             }
             sb.append("\n");
