@@ -1,5 +1,7 @@
 package org.example.Server.GameCore;
 
+import org.example.Server.GameCore.Primitives.Move;
+
 public class GameField {
     private int rows, cols;
     private GameStates[][] field;
@@ -31,6 +33,10 @@ public class GameField {
 
     public GameField(int _rows, int _columns) {
         this(_rows, _columns, true);
+    }
+
+    public int tryMakeMove(Move _move, int _player) {
+        return tryMakeMove(_move.row, _move.col, _player);
     }
 
     public int tryMakeMove(int _row, int _column, int _player) {
@@ -95,6 +101,17 @@ public class GameField {
         if (field[_row][getValueInRange(_column - 1, cols - 1)] == GameStates.Empty) return false;
         if (field[_row][getValueInRange(_column + 1, cols - 1)] == GameStates.Empty) return false;
 
+        return true;
+    }
+
+    public boolean isGameEnded() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (i % 2 != 0 && j % 2 != 0) {
+                    if (field[rows][cols] == GameStates.Empty) return false;
+                }
+            }
+        }
         return true;
     }
 
