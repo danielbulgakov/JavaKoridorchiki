@@ -1,6 +1,6 @@
 package org.example.Server.GameCore;
 
-public enum GameStates {
+public enum FieldStates {
     Corner,
     Horizontal,
     Vertical,
