@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javakoridorchiki.Web.Login.LoginController">
+    <Text text="Введите ваш никнейм:" />
+    <TextField fx:id="nicknameField" />
+    <Button text="Найти игру" onAction="#handleFindGame" />
+</VBox>
+

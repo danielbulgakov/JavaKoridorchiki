@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javakoridorchiki.Web.Grid.GridController">
+  <SplitPane fx:id="splitPane" dividerPositions="0.85" orientation="HORIZONTAL" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <items>
+      <AnchorPane>
+        <GridPane fx:id="gridPane" alignment="center" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="100">
+          <!-- Grid Pane content -->
+        </GridPane>
+      </AnchorPane>
+      <AnchorPane>
+        <VBox fx:id="playersList" spacing="10" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0">
+          <!-- Player list content -->
+        </VBox>
+      </AnchorPane>
+    </items>
+  </SplitPane>
+</AnchorPane>
