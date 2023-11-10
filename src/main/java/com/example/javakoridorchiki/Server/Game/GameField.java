@@ -96,13 +96,16 @@ public class GameField {
             int player0AllScore= 0;
             int player1AllScore = 0;
             for (int col = 1; col < cols; col+=2) {
-                player0AllScore += (field[row][col] == CellType.Player0) ? 1 : 0;
+                if (field[row][col] == CellType.Empty) return null;
+                player0AllScore += (field[row][col] == CellType.Pslayer0) ? 1 : 0;
                 player1AllScore += (field[row][col] == CellType.Player1) ? 1 : 0;
             }
             if (player0AllScore > player1AllScore) {
                 return player0;
             } else if (player0AllScore < player1AllScore) {
                 return player1;
+            } else {
+                return new ClientInfo("ITS A TIE");
             }
         }
         return null;
