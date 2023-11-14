@@ -76,7 +76,7 @@ public class GameCore extends ServerMessage {
         gameField.clear();
         getClients().forEach(ClientInfo::clearScore);
         if (!getClients().isEmpty()) {
-            setNextMoveBy(getWinner());
+            setNextMoveBy(getNextPlayer());
         }
         setWinner(null);
     }
