@@ -2,7 +2,6 @@ package com.example.javakoridorchiki.Server.Game;
 
 import com.example.javakoridorchiki.Common.CellType;
 import com.example.javakoridorchiki.Common.ClientInfo;
-
 public class GameField {
     private final int rows, cols;
     private final CellType[][] field;
@@ -49,10 +48,15 @@ public class GameField {
 
         // Find completed cells
         if (field[row][column] == t) {
-            result += setCellCompleted(getValueInRange(row + 1,rows - 1), column, p);
-            result += setCellCompleted(getValueInRange(row - 1, rows - 1), column, p);
-            result += setCellCompleted(row, getValueInRange(column + 1, cols - 1), p);
-            result += setCellCompleted(row, getValueInRange(column - 1, cols - 1), p);
+            if (row % 2 == 1) {
+                result += setCellCompleted(row, getValueInRange(column + 1, cols - 1), p);
+                result += setCellCompleted(row, getValueInRange(column - 1, cols - 1), p);
+            }
+            if (column % 2 == 1) {
+                result += setCellCompleted(getValueInRange(row + 1,rows - 1), column, p);
+                result += setCellCompleted(getValueInRange(row - 1, rows - 1), column, p);
+            }
+
         }
 
         return result;
@@ -92,23 +96,44 @@ public class GameField {
     }
 
     public ClientInfo checkWinner() {
+        int player0AllScore= 0;
+        int player1AllScore = 0;
         for (int row = 1; row < rows; row+=2) {
-            int player0AllScore= 0;
-            int player1AllScore = 0;
             for (int col = 1; col < cols; col+=2) {
                 if (field[row][col] == CellType.Empty) return null;
                 player0AllScore += (field[row][col] == CellType.Player0) ? 1 : 0;
                 player1AllScore += (field[row][col] == CellType.Player1) ? 1 : 0;
             }
-            if (player0AllScore > player1AllScore) {
-                return player0;
-            } else if (player0AllScore < player1AllScore) {
-                return player1;
-            } else {
-                return new ClientInfo("ITS A TIE");
-            }
         }
-        return null;
+        if (player0AllScore > player1AllScore) {
+            return player0;
+        } else if (player0AllScore < player1AllScore) {
+            return player1;
+        } else {
+            return new ClientInfo("ITS A TIE");
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

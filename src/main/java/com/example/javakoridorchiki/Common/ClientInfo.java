@@ -1,8 +1,6 @@
 package com.example.javakoridorchiki.Common;
 
-import java.io.Serializable;
-
-public class ClientInfo implements Serializable {
+public class ClientInfo {
     private final String name;
     private int score = 0;
     private int wins = 0;

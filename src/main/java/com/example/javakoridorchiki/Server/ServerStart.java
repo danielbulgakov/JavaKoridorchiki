@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ServerStart {
     private static final Logger LOGGER = Logger.getLogger(GameCore.class.getName());
     private final int port = 3124;
-    private final int numberOfPlayers = 4;
+    private final int numberOfPlayers = 2;
     private InetAddress ip = null;
     private final ExecutorService service = Executors.newFixedThreadPool(numberOfPlayers);
     private final static ArrayList<ServerClient> clientArrayList = new ArrayList<>();
