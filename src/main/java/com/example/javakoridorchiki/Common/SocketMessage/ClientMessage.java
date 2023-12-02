@@ -2,6 +2,7 @@ package com.example.javakoridorchiki.Common.SocketMessage;
 
 public class ClientMessage {
     int row, column;
+
     public ClientMessage(int row, int column) {
         this.row = row;
         this.column = column;
