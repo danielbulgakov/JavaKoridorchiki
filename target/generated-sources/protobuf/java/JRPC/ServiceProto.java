@@ -20,11 +20,6 @@ public final class ServiceProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_JRPC_ClientMessage_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_JRPC_ClientInfo_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_JRPC_ClientInfo_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_JRPC_ServerMessage_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -34,6 +29,16 @@ public final class ServiceProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_JRPC_ServerMessage_Field_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_JRPC_ClientInfo_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_JRPC_ClientInfo_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_JRPC_RegisterResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_JRPC_RegisterResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -43,39 +48,42 @@ public final class ServiceProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013proto.proto\022\004JRPC\",\n\rClientMessage\022\013\n\003" +
-      "row\030\001 \001(\005\022\016\n\006column\030\002 \001(\005\"7\n\nClientInfo\022" +
-      "\014\n\004name\030\001 \001(\t\022\r\n\005score\030\002 \001(\005\022\014\n\004wins\030\003 \001" +
-      "(\005\"\317\001\n\rServerMessage\022(\n\005field\030\001 \003(\0132\031.JR" +
+      "\n\013proto.proto\022\004JRPC\032\036google/protobuf/wra" +
+      "ppers.proto\032\033google/protobuf/empty.proto" +
+      "\"P\n\rClientMessage\022\"\n\010identity\030\001 \001(\0132\020.JR" +
+      "PC.ClientInfo\022\013\n\003row\030\002 \001(\005\022\016\n\006column\030\003 \001" +
+      "(\005\"\224\002\n\rServerMessage\022(\n\005field\030\001 \003(\0132\031.JR" +
       "PC.ServerMessage.Field\022!\n\007clients\030\002 \003(\0132" +
       "\020.JRPC.ClientInfo\022 \n\006winner\030\003 \001(\0132\020.JRPC" +
       ".ClientInfo\022$\n\nnextMoveBy\030\004 \001(\0132\020.JRPC.C" +
-      "lientInfo\032)\n\005Field\022 \n\010cellType\030\001 \003(\0162\016.J" +
-      "RPC.CellType*/\n\010CellType\022\013\n\007Player0\020\000\022\013\n" +
-      "\007Player1\020\001\022\t\n\005Empty\020\0022\217\001\n\013GameService\022?\n" +
-      "\021SendClientMessage\022\023.JRPC.ClientMessage\032" +
-      "\023.JRPC.ServerMessage\"\000\022?\n\021SendServerMess" +
-      "age\022\023.JRPC.ServerMessage\032\023.JRPC.ClientMe" +
-      "ssage\"\000B\026\n\004JRPCB\014ServiceProtoP\001b\006proto3"
+      "lientInfo\032n\n\005Field\0224\n\010cellType\030\001 \003(\0162\".J" +
+      "RPC.ServerMessage.Field.CellType\"/\n\010Cell" +
+      "Type\022\013\n\007Player0\020\000\022\013\n\007Player1\020\001\022\t\n\005Empty\020" +
+      "\002\"7\n\nClientInfo\022\014\n\004name\030\001 \001(\t\022\r\n\005score\030\002" +
+      " \001(\005\022\014\n\004wins\030\003 \001(\005\"Z\n\020RegisterResponse\022\021" +
+      "\n\tconnected\030\001 \001(\010\022\017\n\007comment\030\002 \001(\t\022\"\n\010id" +
+      "entity\030\003 \001(\0132\020.JRPC.ClientInfo2\312\001\n\013GameS" +
+      "ervice\022F\n\014RegisterName\022\034.google.protobuf" +
+      ".StringValue\032\026.JRPC.RegisterResponse\"\000\0226" +
+      "\n\010MakeMove\022\023.JRPC.ClientMessage\032\023.JRPC.S" +
+      "erverMessage\"\000\022;\n\nUpdateInfo\022\026.google.pr" +
+      "otobuf.Empty\032\023.JRPC.ServerMessage\"\000B\026\n\004J" +
+      "RPCB\014ServiceProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.WrappersProto.getDescriptor(),
+          com.google.protobuf.EmptyProto.getDescriptor(),
         });
     internal_static_JRPC_ClientMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_JRPC_ClientMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JRPC_ClientMessage_descriptor,
-        new java.lang.String[] { "Row", "Column", });
-    internal_static_JRPC_ClientInfo_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_JRPC_ClientInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_JRPC_ClientInfo_descriptor,
-        new java.lang.String[] { "Name", "Score", "Wins", });
+        new java.lang.String[] { "Identity", "Row", "Column", });
     internal_static_JRPC_ServerMessage_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_JRPC_ServerMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JRPC_ServerMessage_descriptor,
@@ -86,6 +94,20 @@ public final class ServiceProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JRPC_ServerMessage_Field_descriptor,
         new java.lang.String[] { "CellType", });
+    internal_static_JRPC_ClientInfo_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_JRPC_ClientInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_JRPC_ClientInfo_descriptor,
+        new java.lang.String[] { "Name", "Score", "Wins", });
+    internal_static_JRPC_RegisterResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_JRPC_RegisterResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_JRPC_RegisterResponse_descriptor,
+        new java.lang.String[] { "Connected", "Comment", "Identity", });
+    com.google.protobuf.WrappersProto.getDescriptor();
+    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

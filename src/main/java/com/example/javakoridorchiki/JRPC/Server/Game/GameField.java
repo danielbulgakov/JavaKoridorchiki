@@ -1,18 +1,19 @@
-package com.example.javakoridorchiki.Server.Game;
+package com.example.javakoridorchiki.JRPC.Server.Game;
 
-import com.example.javakoridorchiki.Common.CellType;
-import com.example.javakoridorchiki.Common.ClientInfo;
+import JRPC.ClientInfo;
+import JRPC.ServerMessage.Field.*;
+import com.example.javakoridorchiki.JRPC.Server.ClientInfoWrapper;
+
 public class GameField {
     private final int rows, cols;
     private final CellType[][] field;
-    private static final int maxSize = 15;
-
+    private static final int MAX_SIZE = 15;
     private final ClientInfo player0;
     private final ClientInfo player1;
 
     public GameField(int rows, int columns, ClientInfo player0, ClientInfo player1) {
-        this.rows = Math.min(rows, maxSize) * 2 + 1;
-        this.cols = Math.min(columns, maxSize) * 2 + 1;
+        this.rows = Math.min(rows, MAX_SIZE) * 2 + 1;
+        this.cols = Math.min(columns, MAX_SIZE) * 2 + 1;
         this.field = new CellType[this.rows][this.cols];
         this.player0 = player0;
         this.player1 = player1;
@@ -38,7 +39,7 @@ public class GameField {
 
     public int makeMove(int row, int column, ClientInfo p) {
         int result = 0;
-        CellType t = p == player0 ? CellType.Player0 : CellType.Player1;
+        CellType t = p.getName().equals(player0.getName()) ? CellType.Player0 : CellType.Player1;
 
         if (row < 0 || row >= rows) return -1;
         if (column < 0 || column >= cols) return -1;
@@ -63,7 +64,7 @@ public class GameField {
     }
 
     private int setCellCompleted(int row, int column, ClientInfo p) {
-        CellType s = p == player0 ? CellType.Player0 : CellType.Player1;
+        CellType s = p.getName().equals(player0.getName()) ? CellType.Player0 : CellType.Player1;
         if (isCellCompleted(row, column) && field[row][column] == CellType.Empty) {
             field[row][column] = s;
             return 1;
@@ -110,10 +111,9 @@ public class GameField {
         } else if (player0AllScore < player1AllScore) {
             return player1;
         } else {
-            return new ClientInfo("ITS A TIE");
+            return ClientInfo.newBuilder().setName("ITS A TIE").build();
         }
     }
-
 }
 
 

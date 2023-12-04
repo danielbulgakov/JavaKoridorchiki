@@ -5,29 +5,29 @@ package JRPC;
 
 /**
  * <pre>
- * Main client server interaction objects
- * Used since sending data using sockets
+ * Enhanced message to handle new connections to Server
  * </pre>
  *
- * Protobuf type {@code JRPC.ClientMessage}
+ * Protobuf type {@code JRPC.RegisterResponse}
  */
-public  final class ClientMessage extends
+public  final class RegisterResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:JRPC.ClientMessage)
-    ClientMessageOrBuilder {
+    // @@protoc_insertion_point(message_implements:JRPC.RegisterResponse)
+    RegisterResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use ClientMessage.newBuilder() to construct.
-  private ClientMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use RegisterResponse.newBuilder() to construct.
+  private RegisterResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private ClientMessage() {
+  private RegisterResponse() {
+    comment_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new ClientMessage();
+    return new RegisterResponse();
   }
 
   @java.lang.Override
@@ -35,7 +35,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private ClientMessage(
+  private RegisterResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -53,7 +53,18 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
+          case 8: {
+
+            connected_ = input.readBool();
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            comment_ = s;
+            break;
+          }
+          case 26: {
             JRPC.ClientInfo.Builder subBuilder = null;
             if (identity_ != null) {
               subBuilder = identity_.toBuilder();
@@ -64,16 +75,6 @@ private static final long serialVersionUID = 0L;
               identity_ = subBuilder.buildPartial();
             }
 
-            break;
-          }
-          case 16: {
-
-            row_ = input.readInt32();
-            break;
-          }
-          case 24: {
-
-            column_ = input.readInt32();
             break;
           }
           default: {
@@ -97,58 +98,84 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return JRPC.ServiceProto.internal_static_JRPC_ClientMessage_descriptor;
+    return JRPC.ServiceProto.internal_static_JRPC_RegisterResponse_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return JRPC.ServiceProto.internal_static_JRPC_ClientMessage_fieldAccessorTable
+    return JRPC.ServiceProto.internal_static_JRPC_RegisterResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            JRPC.ClientMessage.class, JRPC.ClientMessage.Builder.class);
+            JRPC.RegisterResponse.class, JRPC.RegisterResponse.Builder.class);
   }
 
-  public static final int IDENTITY_FIELD_NUMBER = 1;
+  public static final int CONNECTED_FIELD_NUMBER = 1;
+  private boolean connected_;
+  /**
+   * <code>bool connected = 1;</code>
+   * @return The connected.
+   */
+  public boolean getConnected() {
+    return connected_;
+  }
+
+  public static final int COMMENT_FIELD_NUMBER = 2;
+  private volatile java.lang.Object comment_;
+  /**
+   * <code>string comment = 2;</code>
+   * @return The comment.
+   */
+  public java.lang.String getComment() {
+    java.lang.Object ref = comment_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      comment_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string comment = 2;</code>
+   * @return The bytes for comment.
+   */
+  public com.google.protobuf.ByteString
+      getCommentBytes() {
+    java.lang.Object ref = comment_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      comment_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int IDENTITY_FIELD_NUMBER = 3;
   private JRPC.ClientInfo identity_;
   /**
-   * <code>.JRPC.ClientInfo identity = 1;</code>
+   * <code>.JRPC.ClientInfo identity = 3;</code>
    * @return Whether the identity field is set.
    */
   public boolean hasIdentity() {
     return identity_ != null;
   }
   /**
-   * <code>.JRPC.ClientInfo identity = 1;</code>
+   * <code>.JRPC.ClientInfo identity = 3;</code>
    * @return The identity.
    */
   public JRPC.ClientInfo getIdentity() {
     return identity_ == null ? JRPC.ClientInfo.getDefaultInstance() : identity_;
   }
   /**
-   * <code>.JRPC.ClientInfo identity = 1;</code>
+   * <code>.JRPC.ClientInfo identity = 3;</code>
    */
   public JRPC.ClientInfoOrBuilder getIdentityOrBuilder() {
     return getIdentity();
-  }
-
-  public static final int ROW_FIELD_NUMBER = 2;
-  private int row_;
-  /**
-   * <code>int32 row = 2;</code>
-   * @return The row.
-   */
-  public int getRow() {
-    return row_;
-  }
-
-  public static final int COLUMN_FIELD_NUMBER = 3;
-  private int column_;
-  /**
-   * <code>int32 column = 3;</code>
-   * @return The column.
-   */
-  public int getColumn() {
-    return column_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -165,14 +192,14 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (connected_ != false) {
+      output.writeBool(1, connected_);
+    }
+    if (!getCommentBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, comment_);
+    }
     if (identity_ != null) {
-      output.writeMessage(1, getIdentity());
-    }
-    if (row_ != 0) {
-      output.writeInt32(2, row_);
-    }
-    if (column_ != 0) {
-      output.writeInt32(3, column_);
+      output.writeMessage(3, getIdentity());
     }
     unknownFields.writeTo(output);
   }
@@ -183,17 +210,16 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (connected_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(1, connected_);
+    }
+    if (!getCommentBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, comment_);
+    }
     if (identity_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getIdentity());
-    }
-    if (row_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, row_);
-    }
-    if (column_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, column_);
+        .computeMessageSize(3, getIdentity());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -205,20 +231,20 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof JRPC.ClientMessage)) {
+    if (!(obj instanceof JRPC.RegisterResponse)) {
       return super.equals(obj);
     }
-    JRPC.ClientMessage other = (JRPC.ClientMessage) obj;
+    JRPC.RegisterResponse other = (JRPC.RegisterResponse) obj;
 
+    if (getConnected()
+        != other.getConnected()) return false;
+    if (!getComment()
+        .equals(other.getComment())) return false;
     if (hasIdentity() != other.hasIdentity()) return false;
     if (hasIdentity()) {
       if (!getIdentity()
           .equals(other.getIdentity())) return false;
     }
-    if (getRow()
-        != other.getRow()) return false;
-    if (getColumn()
-        != other.getColumn()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -230,82 +256,83 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + CONNECTED_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getConnected());
+    hash = (37 * hash) + COMMENT_FIELD_NUMBER;
+    hash = (53 * hash) + getComment().hashCode();
     if (hasIdentity()) {
       hash = (37 * hash) + IDENTITY_FIELD_NUMBER;
       hash = (53 * hash) + getIdentity().hashCode();
     }
-    hash = (37 * hash) + ROW_FIELD_NUMBER;
-    hash = (53 * hash) + getRow();
-    hash = (37 * hash) + COLUMN_FIELD_NUMBER;
-    hash = (53 * hash) + getColumn();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static JRPC.ClientMessage parseFrom(byte[] data)
+  public static JRPC.RegisterResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static JRPC.ClientMessage parseFrom(java.io.InputStream input)
+  public static JRPC.RegisterResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static JRPC.ClientMessage parseDelimitedFrom(java.io.InputStream input)
+  public static JRPC.RegisterResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static JRPC.ClientMessage parseDelimitedFrom(
+  public static JRPC.RegisterResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static JRPC.ClientMessage parseFrom(
+  public static JRPC.RegisterResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -318,7 +345,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(JRPC.ClientMessage prototype) {
+  public static Builder newBuilder(JRPC.RegisterResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -335,30 +362,29 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Main client server interaction objects
-   * Used since sending data using sockets
+   * Enhanced message to handle new connections to Server
    * </pre>
    *
-   * Protobuf type {@code JRPC.ClientMessage}
+   * Protobuf type {@code JRPC.RegisterResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:JRPC.ClientMessage)
-      JRPC.ClientMessageOrBuilder {
+      // @@protoc_insertion_point(builder_implements:JRPC.RegisterResponse)
+      JRPC.RegisterResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return JRPC.ServiceProto.internal_static_JRPC_ClientMessage_descriptor;
+      return JRPC.ServiceProto.internal_static_JRPC_RegisterResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return JRPC.ServiceProto.internal_static_JRPC_ClientMessage_fieldAccessorTable
+      return JRPC.ServiceProto.internal_static_JRPC_RegisterResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              JRPC.ClientMessage.class, JRPC.ClientMessage.Builder.class);
+              JRPC.RegisterResponse.class, JRPC.RegisterResponse.Builder.class);
     }
 
-    // Construct using JRPC.ClientMessage.newBuilder()
+    // Construct using JRPC.RegisterResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -376,33 +402,33 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      connected_ = false;
+
+      comment_ = "";
+
       if (identityBuilder_ == null) {
         identity_ = null;
       } else {
         identity_ = null;
         identityBuilder_ = null;
       }
-      row_ = 0;
-
-      column_ = 0;
-
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return JRPC.ServiceProto.internal_static_JRPC_ClientMessage_descriptor;
+      return JRPC.ServiceProto.internal_static_JRPC_RegisterResponse_descriptor;
     }
 
     @java.lang.Override
-    public JRPC.ClientMessage getDefaultInstanceForType() {
-      return JRPC.ClientMessage.getDefaultInstance();
+    public JRPC.RegisterResponse getDefaultInstanceForType() {
+      return JRPC.RegisterResponse.getDefaultInstance();
     }
 
     @java.lang.Override
-    public JRPC.ClientMessage build() {
-      JRPC.ClientMessage result = buildPartial();
+    public JRPC.RegisterResponse build() {
+      JRPC.RegisterResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -410,15 +436,15 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public JRPC.ClientMessage buildPartial() {
-      JRPC.ClientMessage result = new JRPC.ClientMessage(this);
+    public JRPC.RegisterResponse buildPartial() {
+      JRPC.RegisterResponse result = new JRPC.RegisterResponse(this);
+      result.connected_ = connected_;
+      result.comment_ = comment_;
       if (identityBuilder_ == null) {
         result.identity_ = identity_;
       } else {
         result.identity_ = identityBuilder_.build();
       }
-      result.row_ = row_;
-      result.column_ = column_;
       onBuilt();
       return result;
     }
@@ -457,24 +483,25 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof JRPC.ClientMessage) {
-        return mergeFrom((JRPC.ClientMessage)other);
+      if (other instanceof JRPC.RegisterResponse) {
+        return mergeFrom((JRPC.RegisterResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(JRPC.ClientMessage other) {
-      if (other == JRPC.ClientMessage.getDefaultInstance()) return this;
+    public Builder mergeFrom(JRPC.RegisterResponse other) {
+      if (other == JRPC.RegisterResponse.getDefaultInstance()) return this;
+      if (other.getConnected() != false) {
+        setConnected(other.getConnected());
+      }
+      if (!other.getComment().isEmpty()) {
+        comment_ = other.comment_;
+        onChanged();
+      }
       if (other.hasIdentity()) {
         mergeIdentity(other.getIdentity());
-      }
-      if (other.getRow() != 0) {
-        setRow(other.getRow());
-      }
-      if (other.getColumn() != 0) {
-        setColumn(other.getColumn());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -491,11 +518,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      JRPC.ClientMessage parsedMessage = null;
+      JRPC.RegisterResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (JRPC.ClientMessage) e.getUnfinishedMessage();
+        parsedMessage = (JRPC.RegisterResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -505,18 +532,124 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private boolean connected_ ;
+    /**
+     * <code>bool connected = 1;</code>
+     * @return The connected.
+     */
+    public boolean getConnected() {
+      return connected_;
+    }
+    /**
+     * <code>bool connected = 1;</code>
+     * @param value The connected to set.
+     * @return This builder for chaining.
+     */
+    public Builder setConnected(boolean value) {
+      
+      connected_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool connected = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearConnected() {
+      
+      connected_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object comment_ = "";
+    /**
+     * <code>string comment = 2;</code>
+     * @return The comment.
+     */
+    public java.lang.String getComment() {
+      java.lang.Object ref = comment_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        comment_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string comment = 2;</code>
+     * @return The bytes for comment.
+     */
+    public com.google.protobuf.ByteString
+        getCommentBytes() {
+      java.lang.Object ref = comment_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        comment_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string comment = 2;</code>
+     * @param value The comment to set.
+     * @return This builder for chaining.
+     */
+    public Builder setComment(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      comment_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string comment = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearComment() {
+      
+      comment_ = getDefaultInstance().getComment();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string comment = 2;</code>
+     * @param value The bytes for comment to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCommentBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      comment_ = value;
+      onChanged();
+      return this;
+    }
+
     private JRPC.ClientInfo identity_;
     private com.google.protobuf.SingleFieldBuilderV3<
         JRPC.ClientInfo, JRPC.ClientInfo.Builder, JRPC.ClientInfoOrBuilder> identityBuilder_;
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      * @return Whether the identity field is set.
      */
     public boolean hasIdentity() {
       return identityBuilder_ != null || identity_ != null;
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      * @return The identity.
      */
     public JRPC.ClientInfo getIdentity() {
@@ -527,7 +660,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public Builder setIdentity(JRPC.ClientInfo value) {
       if (identityBuilder_ == null) {
@@ -543,7 +676,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public Builder setIdentity(
         JRPC.ClientInfo.Builder builderForValue) {
@@ -557,7 +690,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public Builder mergeIdentity(JRPC.ClientInfo value) {
       if (identityBuilder_ == null) {
@@ -575,7 +708,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public Builder clearIdentity() {
       if (identityBuilder_ == null) {
@@ -589,7 +722,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public JRPC.ClientInfo.Builder getIdentityBuilder() {
       
@@ -597,7 +730,7 @@ private static final long serialVersionUID = 0L;
       return getIdentityFieldBuilder().getBuilder();
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     public JRPC.ClientInfoOrBuilder getIdentityOrBuilder() {
       if (identityBuilder_ != null) {
@@ -608,7 +741,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.JRPC.ClientInfo identity = 1;</code>
+     * <code>.JRPC.ClientInfo identity = 3;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         JRPC.ClientInfo, JRPC.ClientInfo.Builder, JRPC.ClientInfoOrBuilder> 
@@ -623,66 +756,6 @@ private static final long serialVersionUID = 0L;
       }
       return identityBuilder_;
     }
-
-    private int row_ ;
-    /**
-     * <code>int32 row = 2;</code>
-     * @return The row.
-     */
-    public int getRow() {
-      return row_;
-    }
-    /**
-     * <code>int32 row = 2;</code>
-     * @param value The row to set.
-     * @return This builder for chaining.
-     */
-    public Builder setRow(int value) {
-      
-      row_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 row = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearRow() {
-      
-      row_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private int column_ ;
-    /**
-     * <code>int32 column = 3;</code>
-     * @return The column.
-     */
-    public int getColumn() {
-      return column_;
-    }
-    /**
-     * <code>int32 column = 3;</code>
-     * @param value The column to set.
-     * @return This builder for chaining.
-     */
-    public Builder setColumn(int value) {
-      
-      column_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 column = 3;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearColumn() {
-      
-      column_ = 0;
-      onChanged();
-      return this;
-    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -696,41 +769,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:JRPC.ClientMessage)
+    // @@protoc_insertion_point(builder_scope:JRPC.RegisterResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:JRPC.ClientMessage)
-  private static final JRPC.ClientMessage DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:JRPC.RegisterResponse)
+  private static final JRPC.RegisterResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new JRPC.ClientMessage();
+    DEFAULT_INSTANCE = new JRPC.RegisterResponse();
   }
 
-  public static JRPC.ClientMessage getDefaultInstance() {
+  public static JRPC.RegisterResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<ClientMessage>
-      PARSER = new com.google.protobuf.AbstractParser<ClientMessage>() {
+  private static final com.google.protobuf.Parser<RegisterResponse>
+      PARSER = new com.google.protobuf.AbstractParser<RegisterResponse>() {
     @java.lang.Override
-    public ClientMessage parsePartialFrom(
+    public RegisterResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new ClientMessage(input, extensionRegistry);
+      return new RegisterResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<ClientMessage> parser() {
+  public static com.google.protobuf.Parser<RegisterResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<ClientMessage> getParserForType() {
+  public com.google.protobuf.Parser<RegisterResponse> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public JRPC.ClientMessage getDefaultInstanceForType() {
+  public JRPC.RegisterResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

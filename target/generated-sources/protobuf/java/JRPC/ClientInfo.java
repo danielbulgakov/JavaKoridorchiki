@@ -4,6 +4,11 @@
 package JRPC;
 
 /**
+ * <pre>
+ * Helpers type message objects to declare message types
+ * needed in main server client message objects
+ * </pre>
+ *
  * Protobuf type {@code JRPC.ClientInfo}
  */
 public  final class ClientInfo extends
@@ -330,6 +335,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * Helpers type message objects to declare message types
+   * needed in main server client message objects
+   * </pre>
+   *
    * Protobuf type {@code JRPC.ClientInfo}
    */
   public static final class Builder extends

@@ -1,31 +1,29 @@
 syntax = "proto3";
 
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
 package JRPC;
 option java_multiple_files = true;
 option java_package = "JRPC";
 option java_outer_classname = "ServiceProto";
 
-// Client
+// Main client server interaction objects
+// Used since sending data using sockets
 message ClientMessage {
-  int32 row = 1;
-  int32 column = 2;
-}
-
-// Server
-enum CellType {
-  Player0 = 0;
-  Player1 = 1;
-  Empty = 2;
-}
-
-message ClientInfo {
-  string name = 1;
-  int32 score = 2;
-  int32 wins = 3;
+  ClientInfo identity = 1;
+  int32 row = 2;
+  int32 column = 3;
 }
 
 message ServerMessage {
   message Field {
+    enum CellType {
+      Player0 = 0;
+      Player1 = 1;
+      Empty = 2;
+    }
+
     repeated CellType cellType = 1;
   }
 
@@ -35,8 +33,25 @@ message ServerMessage {
   ClientInfo nextMoveBy = 4;
 }
 
+// Helpers type message objects to declare message types
+// needed in main server client message objects
+message ClientInfo {
+  string name = 1;
+  int32 score = 2;
+  int32 wins = 3;
+}
+
+// Enhanced message to handle new connections to Server
+message RegisterResponse {
+  bool connected = 1;
+  string comment = 2;
+  ClientInfo identity = 3;
+}
+
+
 // Service
 service GameService {
-  rpc SendClientMessage (ClientMessage) returns (ServerMessage) {}
-  rpc SendServerMessage (ServerMessage) returns (ClientMessage) {}
+  rpc RegisterName(google.protobuf.StringValue) returns (RegisterResponse) {}
+  rpc MakeMove(ClientMessage) returns (ServerMessage) {}
+  rpc UpdateInfo(google.protobuf.Empty) returns (ServerMessage) {}
 }

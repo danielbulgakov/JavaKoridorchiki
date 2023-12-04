@@ -138,29 +138,29 @@ private static final long serialVersionUID = 0L;
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return A list containing the cellType.
      */
-    java.util.List<JRPC.CellType> getCellTypeList();
+    java.util.List<JRPC.ServerMessage.Field.CellType> getCellTypeList();
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return The count of cellType.
      */
     int getCellTypeCount();
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @param index The index of the element to return.
      * @return The cellType at the given index.
      */
-    JRPC.CellType getCellType(int index);
+    JRPC.ServerMessage.Field.CellType getCellType(int index);
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return A list containing the enum numeric values on the wire for cellType.
      */
     java.util.List<java.lang.Integer>
     getCellTypeValueList();
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @param index The index of the value to return.
      * @return The enum numeric value on the wire of cellType at the given index.
      */
@@ -271,43 +271,156 @@ private static final long serialVersionUID = 0L;
               JRPC.ServerMessage.Field.class, JRPC.ServerMessage.Field.Builder.class);
     }
 
+    /**
+     * Protobuf enum {@code JRPC.ServerMessage.Field.CellType}
+     */
+    public enum CellType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>Player0 = 0;</code>
+       */
+      Player0(0),
+      /**
+       * <code>Player1 = 1;</code>
+       */
+      Player1(1),
+      /**
+       * <code>Empty = 2;</code>
+       */
+      Empty(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>Player0 = 0;</code>
+       */
+      public static final int Player0_VALUE = 0;
+      /**
+       * <code>Player1 = 1;</code>
+       */
+      public static final int Player1_VALUE = 1;
+      /**
+       * <code>Empty = 2;</code>
+       */
+      public static final int Empty_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static CellType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static CellType forNumber(int value) {
+        switch (value) {
+          case 0: return Player0;
+          case 1: return Player1;
+          case 2: return Empty;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<CellType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          CellType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<CellType>() {
+              public CellType findValueByNumber(int number) {
+                return CellType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return JRPC.ServerMessage.Field.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final CellType[] VALUES = values();
+
+      public static CellType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private CellType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:JRPC.ServerMessage.Field.CellType)
+    }
+
     public static final int CELLTYPE_FIELD_NUMBER = 1;
     private java.util.List<java.lang.Integer> cellType_;
     private static final com.google.protobuf.Internal.ListAdapter.Converter<
-        java.lang.Integer, JRPC.CellType> cellType_converter_ =
+        java.lang.Integer, JRPC.ServerMessage.Field.CellType> cellType_converter_ =
             new com.google.protobuf.Internal.ListAdapter.Converter<
-                java.lang.Integer, JRPC.CellType>() {
-              public JRPC.CellType convert(java.lang.Integer from) {
+                java.lang.Integer, JRPC.ServerMessage.Field.CellType>() {
+              public JRPC.ServerMessage.Field.CellType convert(java.lang.Integer from) {
                 @SuppressWarnings("deprecation")
-                JRPC.CellType result = JRPC.CellType.valueOf(from);
-                return result == null ? JRPC.CellType.UNRECOGNIZED : result;
+                JRPC.ServerMessage.Field.CellType result = JRPC.ServerMessage.Field.CellType.valueOf(from);
+                return result == null ? JRPC.ServerMessage.Field.CellType.UNRECOGNIZED : result;
               }
             };
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return A list containing the cellType.
      */
-    public java.util.List<JRPC.CellType> getCellTypeList() {
+    public java.util.List<JRPC.ServerMessage.Field.CellType> getCellTypeList() {
       return new com.google.protobuf.Internal.ListAdapter<
-          java.lang.Integer, JRPC.CellType>(cellType_, cellType_converter_);
+          java.lang.Integer, JRPC.ServerMessage.Field.CellType>(cellType_, cellType_converter_);
     }
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return The count of cellType.
      */
     public int getCellTypeCount() {
       return cellType_.size();
     }
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @param index The index of the element to return.
      * @return The cellType at the given index.
      */
-    public JRPC.CellType getCellType(int index) {
+    public JRPC.ServerMessage.Field.CellType getCellType(int index) {
       return cellType_converter_.convert(cellType_.get(index));
     }
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @return A list containing the enum numeric values on the wire for cellType.
      */
     public java.util.List<java.lang.Integer>
@@ -315,7 +428,7 @@ private static final long serialVersionUID = 0L;
       return cellType_;
     }
     /**
-     * <code>repeated .JRPC.CellType cellType = 1;</code>
+     * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
      * @param index The index of the value to return.
      * @return The enum numeric value on the wire of cellType at the given index.
      */
@@ -662,36 +775,36 @@ private static final long serialVersionUID = 0L;
         }
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @return A list containing the cellType.
        */
-      public java.util.List<JRPC.CellType> getCellTypeList() {
+      public java.util.List<JRPC.ServerMessage.Field.CellType> getCellTypeList() {
         return new com.google.protobuf.Internal.ListAdapter<
-            java.lang.Integer, JRPC.CellType>(cellType_, cellType_converter_);
+            java.lang.Integer, JRPC.ServerMessage.Field.CellType>(cellType_, cellType_converter_);
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @return The count of cellType.
        */
       public int getCellTypeCount() {
         return cellType_.size();
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param index The index of the element to return.
        * @return The cellType at the given index.
        */
-      public JRPC.CellType getCellType(int index) {
+      public JRPC.ServerMessage.Field.CellType getCellType(int index) {
         return cellType_converter_.convert(cellType_.get(index));
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param index The index to set the value at.
        * @param value The cellType to set.
        * @return This builder for chaining.
        */
       public Builder setCellType(
-          int index, JRPC.CellType value) {
+          int index, JRPC.ServerMessage.Field.CellType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -701,11 +814,11 @@ private static final long serialVersionUID = 0L;
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param value The cellType to add.
        * @return This builder for chaining.
        */
-      public Builder addCellType(JRPC.CellType value) {
+      public Builder addCellType(JRPC.ServerMessage.Field.CellType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -715,21 +828,21 @@ private static final long serialVersionUID = 0L;
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param values The cellType to add.
        * @return This builder for chaining.
        */
       public Builder addAllCellType(
-          java.lang.Iterable<? extends JRPC.CellType> values) {
+          java.lang.Iterable<? extends JRPC.ServerMessage.Field.CellType> values) {
         ensureCellTypeIsMutable();
-        for (JRPC.CellType value : values) {
+        for (JRPC.ServerMessage.Field.CellType value : values) {
           cellType_.add(value.getNumber());
         }
         onChanged();
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearCellType() {
@@ -739,7 +852,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @return A list containing the enum numeric values on the wire for cellType.
        */
       public java.util.List<java.lang.Integer>
@@ -747,7 +860,7 @@ private static final long serialVersionUID = 0L;
         return java.util.Collections.unmodifiableList(cellType_);
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param index The index of the value to return.
        * @return The enum numeric value on the wire of cellType at the given index.
        */
@@ -755,7 +868,7 @@ private static final long serialVersionUID = 0L;
         return cellType_.get(index);
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param index The index of the value to return.
        * @return The enum numeric value on the wire of cellType at the given index.
        * @return This builder for chaining.
@@ -768,7 +881,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param value The enum numeric value on the wire for cellType to add.
        * @return This builder for chaining.
        */
@@ -779,7 +892,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
       /**
-       * <code>repeated .JRPC.CellType cellType = 1;</code>
+       * <code>repeated .JRPC.ServerMessage.Field.CellType cellType = 1;</code>
        * @param values The enum numeric values on the wire for cellType to add.
        * @return This builder for chaining.
        */

@@ -1,7 +1,7 @@
 package com.example.javakoridorchiki.Web.Login;
 
-import com.example.javakoridorchiki.Client.Client;
-import com.example.javakoridorchiki.Server.Game.GameCore;
+import JRPC.RegisterResponse;
+import com.example.javakoridorchiki.JRPC.Client.ClientJRPC;
 import com.example.javakoridorchiki.Web.Grid.GridController;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -20,8 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginController {
-    private static final Logger LOGGER = Logger.getLogger(GameCore.class.getName());
-    private final Client client = new Client.Builder().build();
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
+    private final ClientJRPC client = new ClientJRPC.Builder().build();
 
     @FXML
     private TextField nicknameField;
@@ -34,10 +34,9 @@ public class LoginController {
         String nickname = nicknameField.getText();
         LOGGER.log(Level.INFO, "Nickname: " + nickname);
 
-        client.init();
-        String response = client.tryConnectWithNickName(nickname);
+        RegisterResponse response = client.registerName(nickname);
 
-        if (!client.isConnected()) {
+        if (!response.getConnected()) {
             double x = ((Node)(mouseEvent.getSource())).getScene().getWindow().getX();
             double y = ((Node)(mouseEvent.getSource())).getScene().getWindow().getY();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -45,11 +44,12 @@ public class LoginController {
             alert.setY(y);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
-            alert.setContentText(response);
+            alert.setContentText(response.getComment());
 
             alert.showAndWait();
             nicknameField.setText("");
         } else {
+            ClientJRPC.clientInfo = response.getIdentity();
             openGridWindow(mouseEvent);
         }
     }
@@ -61,14 +61,13 @@ public class LoginController {
             Scene scene = new Scene(root1, 1500, 1000);
             Stage stage = new Stage();
             stage.setResizable(false);
-            stage.setTitle("Koridorchiki, Login=" + client.getClientInfo().getName());
+            stage.setTitle("Koridorchiki, Login=" + ClientJRPC.clientInfo.getName());
             stage.setScene(scene);
             stage.show();
 
             ((Node)(event.getSource())).getScene().getWindow().hide();
 
             GridController gridController = fxmlLoader.getController();
-            client.addObserver(gridController);
             gridController.update();
         } catch (IOException e) {
             e.printStackTrace();

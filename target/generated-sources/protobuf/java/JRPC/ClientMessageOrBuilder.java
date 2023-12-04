@@ -8,13 +8,28 @@ public interface ClientMessageOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 row = 1;</code>
+   * <code>.JRPC.ClientInfo identity = 1;</code>
+   * @return Whether the identity field is set.
+   */
+  boolean hasIdentity();
+  /**
+   * <code>.JRPC.ClientInfo identity = 1;</code>
+   * @return The identity.
+   */
+  JRPC.ClientInfo getIdentity();
+  /**
+   * <code>.JRPC.ClientInfo identity = 1;</code>
+   */
+  JRPC.ClientInfoOrBuilder getIdentityOrBuilder();
+
+  /**
+   * <code>int32 row = 2;</code>
    * @return The row.
    */
   int getRow();
 
   /**
-   * <code>int32 column = 2;</code>
+   * <code>int32 column = 3;</code>
    * @return The column.
    */
   int getColumn();

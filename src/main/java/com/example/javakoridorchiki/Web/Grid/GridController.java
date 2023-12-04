@@ -1,10 +1,10 @@
 package com.example.javakoridorchiki.Web.Grid;
 
-import com.example.javakoridorchiki.Client.Client;
-import com.example.javakoridorchiki.Common.CellType;
-import com.example.javakoridorchiki.Common.ClientInfo;
-import com.example.javakoridorchiki.Server.Game.GameCore;
-import javafx.application.Platform;
+import JRPC.ClientInfo;
+import JRPC.ServerMessage;
+import JRPC.ServerMessage.Field.*;
+import com.example.javakoridorchiki.JRPC.Client.ClientJRPC;
+import com.example.javakoridorchiki.JRPC.Server.Game.GameCore;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert;
 import javafx.scene.text.TextAlignment;
+import javafx.application.Platform;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -27,13 +28,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GridController implements IObserver {
-    private static final Logger LOGGER = Logger.getLogger(GameCore.class.getName());
-    private final Client c = new Client.Builder().build();
+    private static final Logger LOGGER = Logger.getLogger(GridController.class.getName());
+    private final ClientJRPC client = new ClientJRPC.Builder().build();
     @FXML
     public SplitPane splitPane;
     @FXML
     public GridPane gridPane;
     public VBox playersList;
+
+    private static ServerMessage currentResponse;
 
     // *** Get field size parameters for config.properties files ***
     private static final Properties properties = new Properties();
@@ -51,20 +54,21 @@ public class GridController implements IObserver {
 
     @FXML
     public void initialize() {
+        currentResponse = client.updateInfo();
         initializeGameGrid();
         initializePlayerList();
     }
 
     private void initializePlayerList() {
-        if (c.getClients() == null) return;
+        if (currentResponse.getClientsList().isEmpty()) return;
         playersList.getChildren().clear();
 
-        for (ClientInfo player : c.getClients()) {
+        for (ClientInfo player : currentResponse.getClientsList()) {
             playersList.getChildren().add(createPlayerRow(player));
         }
 
-        if (c.getNextMoveBy() != null) {
-            playersList.getChildren().add(createWhosMoveLabel(c.getNextMoveBy().getName()));
+        if (currentResponse.hasNextMoveBy()) {
+            playersList.getChildren().add(createWhosMoveLabel(currentResponse.getNextMoveBy().getName()));
         }
     }
 
@@ -118,8 +122,9 @@ public class GridController implements IObserver {
         int localRow = (row * 2) + 1;
         int localColumn = (col * 2) + 1;
 
-        if (c.getField() != null && c.getField()[0][0] != null && c.getField()[localRow][localColumn] != CellType.Empty) {
-            Text symbol = createSymbolText(c.getField()[localRow][localColumn]);
+        if (!currentResponse.getFieldList().isEmpty() &&
+            currentResponse.getField(localRow).getCellType(localColumn) != CellType.Empty) {
+            Text symbol = createSymbolText(currentResponse.getField(localRow).getCellType(localColumn));
             cell.getChildren().add(symbol);
         }
 
@@ -164,7 +169,7 @@ public class GridController implements IObserver {
     private Line createBorderLine(int row, int col, int direction) {
         Line border = new Line();
 
-        if (c.getField() != null) {
+        if (!currentResponse.getFieldList().isEmpty()) {
             border.setStrokeWidth(5);
 
             switch (direction) {
@@ -202,19 +207,20 @@ public class GridController implements IObserver {
         Color you = Color.BLUE;
         Color opponent = Color.RED;
 
-        if (c.getField() != null && c.getField()[row][col] != CellType.Empty) {
+        if (!currentResponse.getFieldList().isEmpty() &&
+                currentResponse.getField(row).getCellType(col) != CellType.Empty) {
             int playerIndex = getPlayerIndexForRowCol(row, col);
             if (playerIndex != -1) {
-                ClientInfo player = c.getClients().get(playerIndex);
-                return player.getName().equals(c.getClientInfo().getName()) ? you : opponent;
+                ClientInfo player = currentResponse.getClients(playerIndex);
+                return player.getName().equals(ClientJRPC.clientInfo.getName()) ? you : opponent;
             }
         }
         return Color.LIGHTGRAY;
     }
 
     private int getPlayerIndexForRowCol(int row, int col) {
-        for (int i = 0; i < c.getClients().size(); i++) {
-            if (c.getField()[row][col] == CellType.values()[i]) {
+        for (int i = 0; i < currentResponse.getClientsList().size(); i++) {
+            if (currentResponse.getField(row).getCellType(col) == CellType.values()[i]) {
                 return i;
             }
         }
@@ -222,9 +228,11 @@ public class GridController implements IObserver {
     }
 
     private void handleLineClick(MouseEvent event) {
-        if (c.getNextMoveBy() != null && !c.getNextMoveBy().getName().equals(c.getClientInfo().getName())) {
+        if (currentResponse.hasNextMoveBy() &&
+            !currentResponse.getNextMoveBy().getName().equals(ClientJRPC.clientInfo.getName())) {
             // Show alert that player cant make move
             showInvalidMoveDialog();
+            this.update();
             return;
         }
 
@@ -232,16 +240,18 @@ public class GridController implements IObserver {
         int rowIndex = ((int[]) source.getUserData())[0];
         int columnIndex = ((int[]) source.getUserData())[1];
 
-        c.sendMove(rowIndex, columnIndex);
+        client.makeMove(rowIndex, columnIndex);
+        this.update();
         LOGGER.log(Level.INFO, "Line clicked at row: " + rowIndex + ", column: " + columnIndex);
     }
 
     @Override
     public void update() {
-        // Update game field and list of players
+     // Update game field and list of players
+        currentResponse = client.updateInfo();
         Platform.runLater(() -> {
-            if (c.getWinner() != null) {
-                showWinnerDialog(c.getWinner().getName());
+            if (currentResponse.hasWinner()) {
+                showWinnerDialog(currentResponse.getWinner().getName());
             }
             initializeGameGrid();
             initializePlayerList();
