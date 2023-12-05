@@ -68,7 +68,6 @@ public class LoginController {
             ((Node)(event.getSource())).getScene().getWindow().hide();
 
             GridController gridController = fxmlLoader.getController();
-            gridController.update();
         } catch (IOException e) {
             e.printStackTrace();
         }

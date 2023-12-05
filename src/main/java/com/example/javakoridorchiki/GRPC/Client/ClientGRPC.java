@@ -5,6 +5,7 @@ import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import com.google.protobuf.StringValue;
+import io.grpc.stub.StreamObserver;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 public class ClientGRPC {
     private static final Logger LOGGER = Logger.getLogger(ClientGRPC.class.getName());
     private final GameServiceGrpc.GameServiceBlockingStub gameServiceBlockingStub;
+    private final GameServiceGrpc.GameServiceStub gameServiceStub;
     private static final int PORT = 3124;
 
     public static ClientInfo clientInfo;
@@ -19,6 +21,7 @@ public class ClientGRPC {
     public ClientGRPC(String host, int port) {
         ManagedChannel managedChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
         gameServiceBlockingStub = GameServiceGrpc.newBlockingStub(managedChannel);
+        gameServiceStub = GameServiceGrpc.newStub(managedChannel);
     }
 
     public RegisterResponse registerName(String name) {
@@ -39,6 +42,10 @@ public class ClientGRPC {
         ServerMessage response = gameServiceBlockingStub.updateInfo(Empty.newBuilder().build());
         LOGGER.log(Level.INFO, "Gor response from server");
         return response;
+    }
+
+    public void subscribe(StreamObserver<ServerMessage> responseObject) {
+        gameServiceStub.subscribe(Empty.newBuilder().build(), responseObject);
     }
 
     // *** Builder class for client ***

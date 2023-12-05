@@ -54,4 +54,5 @@ service GameService {
   rpc RegisterName(google.protobuf.StringValue) returns (RegisterResponse) {}
   rpc MakeMove(ClientMessage) returns (ServerMessage) {}
   rpc UpdateInfo(google.protobuf.Empty) returns (ServerMessage) {}
+  rpc Subscribe(google.protobuf.Empty) returns (stream ServerMessage) {}
 }

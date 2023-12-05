@@ -123,6 +123,37 @@ public final class GameServiceGrpc {
     return getUpdateInfoMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      GRPC.ServerMessage> getSubscribeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Subscribe",
+      requestType = com.google.protobuf.Empty.class,
+      responseType = GRPC.ServerMessage.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      GRPC.ServerMessage> getSubscribeMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, GRPC.ServerMessage> getSubscribeMethod;
+    if ((getSubscribeMethod = GameServiceGrpc.getSubscribeMethod) == null) {
+      synchronized (GameServiceGrpc.class) {
+        if ((getSubscribeMethod = GameServiceGrpc.getSubscribeMethod) == null) {
+          GameServiceGrpc.getSubscribeMethod = getSubscribeMethod =
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, GRPC.ServerMessage>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Subscribe"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  GRPC.ServerMessage.getDefaultInstance()))
+              .setSchemaDescriptor(new GameServiceMethodDescriptorSupplier("Subscribe"))
+              .build();
+        }
+      }
+    }
+    return getSubscribeMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -195,6 +226,13 @@ public final class GameServiceGrpc {
       asyncUnimplementedUnaryCall(getUpdateInfoMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void subscribe(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(getSubscribeMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -218,6 +256,13 @@ public final class GameServiceGrpc {
                 com.google.protobuf.Empty,
                 GRPC.ServerMessage>(
                   this, METHODID_UPDATE_INFO)))
+          .addMethod(
+            getSubscribeMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                com.google.protobuf.Empty,
+                GRPC.ServerMessage>(
+                  this, METHODID_SUBSCRIBE)))
           .build();
     }
   }
@@ -262,6 +307,14 @@ public final class GameServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getUpdateInfoMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void subscribe(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getSubscribeMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -300,6 +353,14 @@ public final class GameServiceGrpc {
     public GRPC.ServerMessage updateInfo(com.google.protobuf.Empty request) {
       return blockingUnaryCall(
           getChannel(), getUpdateInfoMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<GRPC.ServerMessage> subscribe(
+        com.google.protobuf.Empty request) {
+      return blockingServerStreamingCall(
+          getChannel(), getSubscribeMethod(), getCallOptions(), request);
     }
   }
 
@@ -348,6 +409,7 @@ public final class GameServiceGrpc {
   private static final int METHODID_REGISTER_NAME = 0;
   private static final int METHODID_MAKE_MOVE = 1;
   private static final int METHODID_UPDATE_INFO = 2;
+  private static final int METHODID_SUBSCRIBE = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -376,6 +438,10 @@ public final class GameServiceGrpc {
           break;
         case METHODID_UPDATE_INFO:
           serviceImpl.updateInfo((com.google.protobuf.Empty) request,
+              (io.grpc.stub.StreamObserver<GRPC.ServerMessage>) responseObserver);
+          break;
+        case METHODID_SUBSCRIBE:
+          serviceImpl.subscribe((com.google.protobuf.Empty) request,
               (io.grpc.stub.StreamObserver<GRPC.ServerMessage>) responseObserver);
           break;
         default:
@@ -442,6 +508,7 @@ public final class GameServiceGrpc {
               .addMethod(getRegisterNameMethod())
               .addMethod(getMakeMoveMethod())
               .addMethod(getUpdateInfoMethod())
+              .addMethod(getSubscribeMethod())
               .build();
         }
       }

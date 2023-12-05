@@ -62,13 +62,15 @@ public final class ServiceProto {
       "\002\"7\n\nClientInfo\022\014\n\004name\030\001 \001(\t\022\r\n\005score\030\002" +
       " \001(\005\022\014\n\004wins\030\003 \001(\005\"Z\n\020RegisterResponse\022\021" +
       "\n\tconnected\030\001 \001(\010\022\017\n\007comment\030\002 \001(\t\022\"\n\010id" +
-      "entity\030\003 \001(\0132\020.gRPC.ClientInfo2\312\001\n\013GameS" +
+      "entity\030\003 \001(\0132\020.gRPC.ClientInfo2\210\002\n\013GameS" +
       "ervice\022F\n\014RegisterName\022\034.google.protobuf" +
       ".StringValue\032\026.gRPC.RegisterResponse\"\000\0226" +
       "\n\010MakeMove\022\023.gRPC.ClientMessage\032\023.gRPC.S" +
       "erverMessage\"\000\022;\n\nUpdateInfo\022\026.google.pr" +
-      "otobuf.Empty\032\023.gRPC.ServerMessage\"\000B\026\n\004G" +
-      "RPCB\014ServiceProtoP\001b\006proto3"
+      "otobuf.Empty\032\023.gRPC.ServerMessage\"\000\022<\n\tS" +
+      "ubscribe\022\026.google.protobuf.Empty\032\023.gRPC." +
+      "ServerMessage\"\0000\001B\026\n\004GRPCB\014ServiceProtoP" +
+      "\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -17,6 +17,8 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     private static final Logger LOGGER = Logger.getLogger(GameServiceImpl.class.getName());
     private final GameCore gc = new GameCore.Builder().build();
 
+    private volatile boolean wasFieldModified = false;
+
     // ====================================================
     // Handle new connections to the server
     // ====================================================
@@ -32,6 +34,7 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
         } else {
             GRPC.ClientInfo clientInfo = GRPC.ClientInfo.newBuilder().setName(playerName).build();
             gc.addClient(clientInfo);
+            wasFieldModified = true;
             response.setConnected(true).setComment("ACCEPT").setIdentity(clientInfo);
             LOGGER.log(Level.INFO, "Client added, name = " + playerName);
         }
@@ -45,6 +48,7 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     @Override
     public void makeMove(GRPC.ClientMessage request, StreamObserver<GRPC.ServerMessage> responseObserver) {
         gc.makeMove(request.getRow(), request.getColumn(), request.getIdentity());
+        wasFieldModified = true;
         responseObserver.onNext(getUpdatedResponseBuilder().build());
         responseObserver.onCompleted();
     }
@@ -53,6 +57,25 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     public void updateInfo(Empty request, StreamObserver<GRPC.ServerMessage> responseObserver) {
         responseObserver.onNext(getUpdatedResponseBuilder().build());
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void subscribe(Empty request, StreamObserver<GRPC.ServerMessage> responseObserver) {
+        try {
+            while (true) {
+                if (!wasFieldModified) continue;
+                GRPC.ServerMessage updateMessage = getUpdatedResponseBuilder().build();
+
+                responseObserver.onNext(updateMessage);
+
+                Thread.sleep(200);
+                wasFieldModified = false;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            responseObserver.onCompleted();
+        }
     }
 
     // ====================================================

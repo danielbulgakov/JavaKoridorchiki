@@ -5,6 +5,7 @@ import GRPC.ServerMessage;
 import GRPC.ServerMessage.Field.*;
 import com.example.javakoridorchiki.GRPC.Client.ClientGRPC;
 import com.example.javakoridorchiki.GRPC.Server.Game.GameCore;
+import io.grpc.stub.StreamObserver;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -27,7 +28,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GridController implements IObserver {
+public class GridController {
     private static final Logger LOGGER = Logger.getLogger(GridController.class.getName());
     private final ClientGRPC client = new ClientGRPC.Builder().build();
     @FXML
@@ -54,9 +55,32 @@ public class GridController implements IObserver {
 
     @FXML
     public void initialize() {
-        currentResponse = client.updateInfo();
-        initializeGameGrid();
-        initializePlayerList();
+        StreamObserver<ServerMessage> responseObserver = new StreamObserver<GRPC.ServerMessage>() {
+            @Override
+            public void onNext(GRPC.ServerMessage serverMessage) {
+                currentResponse = serverMessage;
+                Platform.runLater(() -> {
+                    if (currentResponse.hasWinner()) {
+                        showWinnerDialog(currentResponse.getWinner().getName());
+                    }
+                    initializeGameGrid();
+                    initializePlayerList();
+                });
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                // Обработка ошибок
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                // Вызывается при завершении потока сервера
+                System.out.println("Server streaming completed");
+            }
+        };
+        client.subscribe(responseObserver);
     }
 
     private void initializePlayerList() {
@@ -232,7 +256,6 @@ public class GridController implements IObserver {
             !currentResponse.getNextMoveBy().getName().equals(ClientGRPC.clientInfo.getName())) {
             // Show alert that player cant make move
             showInvalidMoveDialog();
-            this.update();
             return;
         }
 
@@ -241,21 +264,7 @@ public class GridController implements IObserver {
         int columnIndex = ((int[]) source.getUserData())[1];
 
         client.makeMove(rowIndex, columnIndex);
-        this.update();
         LOGGER.log(Level.INFO, "Line clicked at row: " + rowIndex + ", column: " + columnIndex);
-    }
-
-    @Override
-    public void update() {
-     // Update game field and list of players
-        currentResponse = client.updateInfo();
-        Platform.runLater(() -> {
-            if (currentResponse.hasWinner()) {
-                showWinnerDialog(currentResponse.getWinner().getName());
-            }
-            initializeGameGrid();
-            initializePlayerList();
-        });
     }
 
     private void showWinnerDialog(String winnerName) {

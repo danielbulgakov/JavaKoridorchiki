@@ -15,4 +15,5 @@ module com.example.javakoridorchiki {
     exports com.example.javakoridorchiki.Web.Grid;
     opens com.example.javakoridorchiki.Web.Login to javafx.fxml;
     exports com.example.javakoridorchiki.Web.Login;
+    exports GRPC to com.google.protobuf;
 }
