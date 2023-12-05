@@ -1,6 +1,6 @@
-package com.example.javakoridorchiki.JRPC.Client;
+package com.example.javakoridorchiki.GRPC.Client;
 
-import JRPC.*;
+import GRPC.*;
 import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -9,14 +9,14 @@ import com.google.protobuf.StringValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClientJRPC {
-    private static final Logger LOGGER = Logger.getLogger(ClientJRPC.class.getName());
+public class ClientGRPC {
+    private static final Logger LOGGER = Logger.getLogger(ClientGRPC.class.getName());
     private final GameServiceGrpc.GameServiceBlockingStub gameServiceBlockingStub;
     private static final int PORT = 3124;
 
     public static ClientInfo clientInfo;
 
-    public ClientJRPC(String host, int port) {
+    public ClientGRPC(String host, int port) {
         ManagedChannel managedChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
         gameServiceBlockingStub = GameServiceGrpc.newBlockingStub(managedChannel);
     }
@@ -43,12 +43,12 @@ public class ClientJRPC {
 
     // *** Builder class for client ***
 
-    private static ClientJRPC instance;
+    private static ClientGRPC instance;
 
     public static class Builder {
-        public ClientJRPC build() {
+        public ClientGRPC build() {
             if (instance == null) {
-                instance = new ClientJRPC("localhost", PORT);
+                instance = new ClientGRPC("localhost", PORT);
             }
             return instance;
         }

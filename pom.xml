@@ -28,7 +28,7 @@
     </dependency>
 
 
-<!--    JRPC  Dependecnies -->
+<!--    GRPC  Dependecnies -->
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-protobuf</artifactId>

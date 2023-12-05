@@ -1,4 +1,4 @@
-package JRPC;
+package GRPC;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -27,32 +27,32 @@ public final class GameServiceGrpc {
 
   private GameServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "JRPC.GameService";
+  public static final String SERVICE_NAME = "gRPC.GameService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.google.protobuf.StringValue,
-      JRPC.RegisterResponse> getRegisterNameMethod;
+      GRPC.RegisterResponse> getRegisterNameMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "RegisterName",
       requestType = com.google.protobuf.StringValue.class,
-      responseType = JRPC.RegisterResponse.class,
+      responseType = GRPC.RegisterResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.google.protobuf.StringValue,
-      JRPC.RegisterResponse> getRegisterNameMethod() {
-    io.grpc.MethodDescriptor<com.google.protobuf.StringValue, JRPC.RegisterResponse> getRegisterNameMethod;
+      GRPC.RegisterResponse> getRegisterNameMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.StringValue, GRPC.RegisterResponse> getRegisterNameMethod;
     if ((getRegisterNameMethod = GameServiceGrpc.getRegisterNameMethod) == null) {
       synchronized (GameServiceGrpc.class) {
         if ((getRegisterNameMethod = GameServiceGrpc.getRegisterNameMethod) == null) {
           GameServiceGrpc.getRegisterNameMethod = getRegisterNameMethod =
-              io.grpc.MethodDescriptor.<com.google.protobuf.StringValue, JRPC.RegisterResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.google.protobuf.StringValue, GRPC.RegisterResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RegisterName"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.google.protobuf.StringValue.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  JRPC.RegisterResponse.getDefaultInstance()))
+                  GRPC.RegisterResponse.getDefaultInstance()))
               .setSchemaDescriptor(new GameServiceMethodDescriptorSupplier("RegisterName"))
               .build();
         }
@@ -61,29 +61,29 @@ public final class GameServiceGrpc {
     return getRegisterNameMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<JRPC.ClientMessage,
-      JRPC.ServerMessage> getMakeMoveMethod;
+  private static volatile io.grpc.MethodDescriptor<GRPC.ClientMessage,
+      GRPC.ServerMessage> getMakeMoveMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "MakeMove",
-      requestType = JRPC.ClientMessage.class,
-      responseType = JRPC.ServerMessage.class,
+      requestType = GRPC.ClientMessage.class,
+      responseType = GRPC.ServerMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<JRPC.ClientMessage,
-      JRPC.ServerMessage> getMakeMoveMethod() {
-    io.grpc.MethodDescriptor<JRPC.ClientMessage, JRPC.ServerMessage> getMakeMoveMethod;
+  public static io.grpc.MethodDescriptor<GRPC.ClientMessage,
+      GRPC.ServerMessage> getMakeMoveMethod() {
+    io.grpc.MethodDescriptor<GRPC.ClientMessage, GRPC.ServerMessage> getMakeMoveMethod;
     if ((getMakeMoveMethod = GameServiceGrpc.getMakeMoveMethod) == null) {
       synchronized (GameServiceGrpc.class) {
         if ((getMakeMoveMethod = GameServiceGrpc.getMakeMoveMethod) == null) {
           GameServiceGrpc.getMakeMoveMethod = getMakeMoveMethod =
-              io.grpc.MethodDescriptor.<JRPC.ClientMessage, JRPC.ServerMessage>newBuilder()
+              io.grpc.MethodDescriptor.<GRPC.ClientMessage, GRPC.ServerMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "MakeMove"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  JRPC.ClientMessage.getDefaultInstance()))
+                  GRPC.ClientMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  JRPC.ServerMessage.getDefaultInstance()))
+                  GRPC.ServerMessage.getDefaultInstance()))
               .setSchemaDescriptor(new GameServiceMethodDescriptorSupplier("MakeMove"))
               .build();
         }
@@ -93,28 +93,28 @@ public final class GameServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      JRPC.ServerMessage> getUpdateInfoMethod;
+      GRPC.ServerMessage> getUpdateInfoMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "UpdateInfo",
       requestType = com.google.protobuf.Empty.class,
-      responseType = JRPC.ServerMessage.class,
+      responseType = GRPC.ServerMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      JRPC.ServerMessage> getUpdateInfoMethod() {
-    io.grpc.MethodDescriptor<com.google.protobuf.Empty, JRPC.ServerMessage> getUpdateInfoMethod;
+      GRPC.ServerMessage> getUpdateInfoMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, GRPC.ServerMessage> getUpdateInfoMethod;
     if ((getUpdateInfoMethod = GameServiceGrpc.getUpdateInfoMethod) == null) {
       synchronized (GameServiceGrpc.class) {
         if ((getUpdateInfoMethod = GameServiceGrpc.getUpdateInfoMethod) == null) {
           GameServiceGrpc.getUpdateInfoMethod = getUpdateInfoMethod =
-              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, JRPC.ServerMessage>newBuilder()
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, GRPC.ServerMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateInfo"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.google.protobuf.Empty.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  JRPC.ServerMessage.getDefaultInstance()))
+                  GRPC.ServerMessage.getDefaultInstance()))
               .setSchemaDescriptor(new GameServiceMethodDescriptorSupplier("UpdateInfo"))
               .build();
         }
@@ -177,21 +177,21 @@ public final class GameServiceGrpc {
     /**
      */
     public void registerName(com.google.protobuf.StringValue request,
-        io.grpc.stub.StreamObserver<JRPC.RegisterResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<GRPC.RegisterResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getRegisterNameMethod(), responseObserver);
     }
 
     /**
      */
-    public void makeMove(JRPC.ClientMessage request,
-        io.grpc.stub.StreamObserver<JRPC.ServerMessage> responseObserver) {
+    public void makeMove(GRPC.ClientMessage request,
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
       asyncUnimplementedUnaryCall(getMakeMoveMethod(), responseObserver);
     }
 
     /**
      */
     public void updateInfo(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<JRPC.ServerMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
       asyncUnimplementedUnaryCall(getUpdateInfoMethod(), responseObserver);
     }
 
@@ -202,21 +202,21 @@ public final class GameServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.StringValue,
-                JRPC.RegisterResponse>(
+                GRPC.RegisterResponse>(
                   this, METHODID_REGISTER_NAME)))
           .addMethod(
             getMakeMoveMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                JRPC.ClientMessage,
-                JRPC.ServerMessage>(
+                GRPC.ClientMessage,
+                GRPC.ServerMessage>(
                   this, METHODID_MAKE_MOVE)))
           .addMethod(
             getUpdateInfoMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.Empty,
-                JRPC.ServerMessage>(
+                GRPC.ServerMessage>(
                   this, METHODID_UPDATE_INFO)))
           .build();
     }
@@ -242,15 +242,15 @@ public final class GameServiceGrpc {
     /**
      */
     public void registerName(com.google.protobuf.StringValue request,
-        io.grpc.stub.StreamObserver<JRPC.RegisterResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<GRPC.RegisterResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getRegisterNameMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void makeMove(JRPC.ClientMessage request,
-        io.grpc.stub.StreamObserver<JRPC.ServerMessage> responseObserver) {
+    public void makeMove(GRPC.ClientMessage request,
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getMakeMoveMethod(), getCallOptions()), request, responseObserver);
     }
@@ -258,7 +258,7 @@ public final class GameServiceGrpc {
     /**
      */
     public void updateInfo(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<JRPC.ServerMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<GRPC.ServerMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getUpdateInfoMethod(), getCallOptions()), request, responseObserver);
     }
@@ -283,21 +283,21 @@ public final class GameServiceGrpc {
 
     /**
      */
-    public JRPC.RegisterResponse registerName(com.google.protobuf.StringValue request) {
+    public GRPC.RegisterResponse registerName(com.google.protobuf.StringValue request) {
       return blockingUnaryCall(
           getChannel(), getRegisterNameMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public JRPC.ServerMessage makeMove(JRPC.ClientMessage request) {
+    public GRPC.ServerMessage makeMove(GRPC.ClientMessage request) {
       return blockingUnaryCall(
           getChannel(), getMakeMoveMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public JRPC.ServerMessage updateInfo(com.google.protobuf.Empty request) {
+    public GRPC.ServerMessage updateInfo(com.google.protobuf.Empty request) {
       return blockingUnaryCall(
           getChannel(), getUpdateInfoMethod(), getCallOptions(), request);
     }
@@ -322,7 +322,7 @@ public final class GameServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<JRPC.RegisterResponse> registerName(
+    public com.google.common.util.concurrent.ListenableFuture<GRPC.RegisterResponse> registerName(
         com.google.protobuf.StringValue request) {
       return futureUnaryCall(
           getChannel().newCall(getRegisterNameMethod(), getCallOptions()), request);
@@ -330,15 +330,15 @@ public final class GameServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<JRPC.ServerMessage> makeMove(
-        JRPC.ClientMessage request) {
+    public com.google.common.util.concurrent.ListenableFuture<GRPC.ServerMessage> makeMove(
+        GRPC.ClientMessage request) {
       return futureUnaryCall(
           getChannel().newCall(getMakeMoveMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<JRPC.ServerMessage> updateInfo(
+    public com.google.common.util.concurrent.ListenableFuture<GRPC.ServerMessage> updateInfo(
         com.google.protobuf.Empty request) {
       return futureUnaryCall(
           getChannel().newCall(getUpdateInfoMethod(), getCallOptions()), request);
@@ -368,15 +368,15 @@ public final class GameServiceGrpc {
       switch (methodId) {
         case METHODID_REGISTER_NAME:
           serviceImpl.registerName((com.google.protobuf.StringValue) request,
-              (io.grpc.stub.StreamObserver<JRPC.RegisterResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<GRPC.RegisterResponse>) responseObserver);
           break;
         case METHODID_MAKE_MOVE:
-          serviceImpl.makeMove((JRPC.ClientMessage) request,
-              (io.grpc.stub.StreamObserver<JRPC.ServerMessage>) responseObserver);
+          serviceImpl.makeMove((GRPC.ClientMessage) request,
+              (io.grpc.stub.StreamObserver<GRPC.ServerMessage>) responseObserver);
           break;
         case METHODID_UPDATE_INFO:
           serviceImpl.updateInfo((com.google.protobuf.Empty) request,
-              (io.grpc.stub.StreamObserver<JRPC.ServerMessage>) responseObserver);
+              (io.grpc.stub.StreamObserver<GRPC.ServerMessage>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -400,7 +400,7 @@ public final class GameServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return JRPC.ServiceProto.getDescriptor();
+      return GRPC.ServiceProto.getDescriptor();
     }
 
     @java.lang.Override

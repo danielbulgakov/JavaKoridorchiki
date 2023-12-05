@@ -3,9 +3,9 @@ syntax = "proto3";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 
-package JRPC;
+package gRPC;
 option java_multiple_files = true;
-option java_package = "JRPC";
+option java_package = "GRPC";
 option java_outer_classname = "ServiceProto";
 
 // Main client server interaction objects

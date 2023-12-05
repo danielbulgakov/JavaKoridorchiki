@@ -1,10 +1,10 @@
 package com.example.javakoridorchiki.Web.Grid;
 
-import JRPC.ClientInfo;
-import JRPC.ServerMessage;
-import JRPC.ServerMessage.Field.*;
-import com.example.javakoridorchiki.JRPC.Client.ClientJRPC;
-import com.example.javakoridorchiki.JRPC.Server.Game.GameCore;
+import GRPC.ClientInfo;
+import GRPC.ServerMessage;
+import GRPC.ServerMessage.Field.*;
+import com.example.javakoridorchiki.GRPC.Client.ClientGRPC;
+import com.example.javakoridorchiki.GRPC.Server.Game.GameCore;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 
 public class GridController implements IObserver {
     private static final Logger LOGGER = Logger.getLogger(GridController.class.getName());
-    private final ClientJRPC client = new ClientJRPC.Builder().build();
+    private final ClientGRPC client = new ClientGRPC.Builder().build();
     @FXML
     public SplitPane splitPane;
     @FXML
@@ -212,7 +212,7 @@ public class GridController implements IObserver {
             int playerIndex = getPlayerIndexForRowCol(row, col);
             if (playerIndex != -1) {
                 ClientInfo player = currentResponse.getClients(playerIndex);
-                return player.getName().equals(ClientJRPC.clientInfo.getName()) ? you : opponent;
+                return player.getName().equals(ClientGRPC.clientInfo.getName()) ? you : opponent;
             }
         }
         return Color.LIGHTGRAY;
@@ -229,7 +229,7 @@ public class GridController implements IObserver {
 
     private void handleLineClick(MouseEvent event) {
         if (currentResponse.hasNextMoveBy() &&
-            !currentResponse.getNextMoveBy().getName().equals(ClientJRPC.clientInfo.getName())) {
+            !currentResponse.getNextMoveBy().getName().equals(ClientGRPC.clientInfo.getName())) {
             // Show alert that player cant make move
             showInvalidMoveDialog();
             this.update();

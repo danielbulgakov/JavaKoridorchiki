@@ -1,4 +1,4 @@
-package com.example.javakoridorchiki.JRPC.Server;
+package com.example.javakoridorchiki.GRPC.Server;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ServerJRPC {
-    private static final Logger LOGGER = Logger.getLogger(ServerJRPC.class.getName());
+public class ServerGRPC {
+    private static final Logger LOGGER = Logger.getLogger(ServerGRPC.class.getName());
     private static final int PORT = 3124;
 
     public void serverStart() throws IOException, InterruptedException {
@@ -31,6 +31,6 @@ public class ServerJRPC {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        new ServerJRPC().serverStart();
+        new ServerGRPC().serverStart();
     }
 }

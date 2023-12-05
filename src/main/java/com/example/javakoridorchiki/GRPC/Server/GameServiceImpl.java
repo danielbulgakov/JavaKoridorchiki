@@ -1,12 +1,15 @@
-package com.example.javakoridorchiki.JRPC.Server;
+package com.example.javakoridorchiki.GRPC.Server;
 
-import JRPC.GameServiceGrpc;
-import JRPC.ServerMessage;
-import com.example.javakoridorchiki.JRPC.Server.Game.GameCore;
+import GRPC.GameServiceGrpc;
+import GRPC.RegisterResponse;
+import GRPC.ServerMessage;
+import com.example.javakoridorchiki.GRPC.Server.Game.GameCore;
 import com.google.protobuf.Empty;
 import com.google.protobuf.StringValue;
 import io.grpc.stub.StreamObserver;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,15 +22,15 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     // ====================================================
     private static final int MAX_NUM_PLAYERS = 2;
     @Override
-    public void registerName(StringValue request, StreamObserver<JRPC.RegisterResponse> responseObserver) {
+    public void registerName(StringValue request, StreamObserver<RegisterResponse> responseObserver) {
         String playerName = request.getValue();
-        JRPC.RegisterResponse.Builder response = JRPC.RegisterResponse.newBuilder();
+        GRPC.RegisterResponse.Builder response = GRPC.RegisterResponse.newBuilder();
         if (gc.clients.stream().anyMatch(clientInfo -> clientInfo.getName().equals(playerName))) {
             response.setConnected(false).setComment("DECLINE: Player with this name already exists");
         } else if (gc.clients.size() >= MAX_NUM_PLAYERS) {
             response.setConnected(false).setComment("DECLINE: Maximum number of players reached");
         } else {
-            JRPC.ClientInfo clientInfo = JRPC.ClientInfo.newBuilder().setName(playerName).build();
+            GRPC.ClientInfo clientInfo = GRPC.ClientInfo.newBuilder().setName(playerName).build();
             gc.addClient(clientInfo);
             response.setConnected(true).setComment("ACCEPT").setIdentity(clientInfo);
             LOGGER.log(Level.INFO, "Client added, name = " + playerName);
@@ -40,14 +43,14 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     // Handle game flow on the server
     // ====================================================
     @Override
-    public void makeMove(JRPC.ClientMessage request, StreamObserver<JRPC.ServerMessage> responseObserver) {
+    public void makeMove(GRPC.ClientMessage request, StreamObserver<GRPC.ServerMessage> responseObserver) {
         gc.makeMove(request.getRow(), request.getColumn(), request.getIdentity());
         responseObserver.onNext(getUpdatedResponseBuilder().build());
         responseObserver.onCompleted();
     }
 
     @Override
-    public void updateInfo(Empty request, StreamObserver<JRPC.ServerMessage> responseObserver) {
+    public void updateInfo(Empty request, StreamObserver<GRPC.ServerMessage> responseObserver) {
         responseObserver.onNext(getUpdatedResponseBuilder().build());
         responseObserver.onCompleted();
     }
@@ -55,11 +58,11 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     // ====================================================
     // Unified server message builder
     // ====================================================
-    JRPC.ServerMessage.Builder getUpdatedResponseBuilder() {
-        JRPC.ServerMessage.Builder response = JRPC.ServerMessage.newBuilder();
+    GRPC.ServerMessage.Builder getUpdatedResponseBuilder() {
+        GRPC.ServerMessage.Builder response = GRPC.ServerMessage.newBuilder();
 
         for (int i = 0; i < gc.field.length; i++) {
-            JRPC.ServerMessage.Field.Builder fieldBuilder = JRPC.ServerMessage.Field.newBuilder();
+            GRPC.ServerMessage.Field.Builder fieldBuilder = GRPC.ServerMessage.Field.newBuilder();
             for (int j = 0; j < gc.field[i].length; j++) {
                 if (gc.field[i][j] == null) {
                     fieldBuilder.addCellType(ServerMessage.Field.CellType.Empty);

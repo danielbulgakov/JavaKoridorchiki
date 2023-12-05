@@ -1,12 +1,12 @@
-package com.example.javakoridorchiki.JRPC.Server;
+package com.example.javakoridorchiki.GRPC.Server;
 public class ClientInfoWrapper {
-    private JRPC.ClientInfo clientInfo;
+    private GRPC.ClientInfo clientInfo;
 
-    public ClientInfoWrapper(JRPC.ClientInfo clientInfo) {
+    public ClientInfoWrapper(GRPC.ClientInfo clientInfo) {
         this.clientInfo = clientInfo;
     }
 
-    public JRPC.ClientInfo getClientInfo() {
+    public GRPC.ClientInfo getClientInfo() {
         return clientInfo;
     }
 

@@ -1,8 +1,8 @@
-package com.example.javakoridorchiki.JRPC.Server.Game;
+package com.example.javakoridorchiki.GRPC.Server.Game;
 
-import JRPC.ClientInfo;
-import JRPC.ServerMessage.Field.*;
-import com.example.javakoridorchiki.JRPC.Server.ClientInfoWrapper;
+import GRPC.ClientInfo;
+import GRPC.ServerMessage.Field.*;
+import com.example.javakoridorchiki.GRPC.Server.ClientInfoWrapper;
 
 import java.io.InputStream;
 import java.util.Properties;

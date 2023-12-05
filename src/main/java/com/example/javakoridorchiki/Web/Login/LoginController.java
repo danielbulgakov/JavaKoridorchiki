@@ -1,7 +1,7 @@
 package com.example.javakoridorchiki.Web.Login;
 
-import JRPC.RegisterResponse;
-import com.example.javakoridorchiki.JRPC.Client.ClientJRPC;
+import GRPC.RegisterResponse;
+import com.example.javakoridorchiki.GRPC.Client.ClientGRPC;
 import com.example.javakoridorchiki.Web.Grid.GridController;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 public class LoginController {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
-    private final ClientJRPC client = new ClientJRPC.Builder().build();
+    private final ClientGRPC client = new ClientGRPC.Builder().build();
 
     @FXML
     private TextField nicknameField;
@@ -49,7 +49,7 @@ public class LoginController {
             alert.showAndWait();
             nicknameField.setText("");
         } else {
-            ClientJRPC.clientInfo = response.getIdentity();
+            ClientGRPC.clientInfo = response.getIdentity();
             openGridWindow(mouseEvent);
         }
     }
@@ -61,7 +61,7 @@ public class LoginController {
             Scene scene = new Scene(root1, 1500, 1000);
             Stage stage = new Stage();
             stage.setResizable(false);
-            stage.setTitle("Koridorchiki, Login=" + ClientJRPC.clientInfo.getName());
+            stage.setTitle("Koridorchiki, Login=" + ClientGRPC.clientInfo.getName());
             stage.setScene(scene);
             stage.show();
 
